@@ -29,4 +29,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem;
 .post-content h2 { color: var(--cyan); margin: 2rem 0 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
 .post-content p { margin-bottom: 1.5rem; }
 .score-badge { display: inline-block; padding: 2px 10px; background: var(--purple); color: #fff; border-radius: 4px; font-family: "Share Tech Mono", monospace; font-size: 0.8rem; }
+.comments-section { margin-top: 4rem; }
+.giscus, .giscus-frame { width: 100%; }
 footer { text-align: center; padding: 3rem; border-top: 1px solid var(--border); color: #444; font-size: 0.8rem; }
