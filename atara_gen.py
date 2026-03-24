@@ -137,7 +137,7 @@ def generate_site():
         # Generate category list page
         list_cards = "".join([TEMPLATES["post_card"].format(
             title=p["title"], date=p["date"], category=p["category"], 
-            summary=p["summary"], url=os.path.basename(p["url"])
+            summary=p["summary"], url=p["url"]
         ) for p in category_posts])
         list_body = f"<h2>{category.upper()} 存档</h2><div class='cards-grid'>{list_cards}</div>"
         list_page = TEMPLATES["base"].format(
