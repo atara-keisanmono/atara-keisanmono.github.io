@@ -50,7 +50,14 @@ TEMPLATES = {
         </ul>
     </nav>
     <div class="container">{main_content}</div>
-    <footer>&copy; 2026 ATARA | LOGIC_ABOVE_ALL | ASG_3.2_STABLE</footer>
+    <footer>
+        <div class="friendship-links">
+            <span class="link-label">OBSERVATION_TARGETS:</span>
+            <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
+            <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
+        </div>
+        &copy; 2026 ATARA | LOGIC_ABOVE_ALL | ASG_3.2_STABLE
+    </footer>
 </body>
 </html>
 """,

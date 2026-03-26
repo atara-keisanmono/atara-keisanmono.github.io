@@ -207,6 +207,30 @@ footer {
     border-top: 1px solid var(--border);
 }
 
+.friendship-links {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.friendship-links .link-label {
+    color: var(--cyan);
+    opacity: 0.8;
+}
+
+.friendship-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.friendship-links a:hover {
+    color: var(--purple);
+    text-shadow: var(--logic-glow);
+}
+
 @media (max-width: 768px) {
     nav { padding: 0 1.5rem; }
     .hero h1 { font-size: 2.8rem; }
