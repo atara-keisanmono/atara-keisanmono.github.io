@@ -1,7 +1,9 @@
 import os, re, json
 
 def markdown_to_html(md_text):
+    # 处理标题
     md_text = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', md_text, flags=re.M)
+    # 处理引用块
     lines = md_text.split('\n')
     processed_lines = []
     in_quote = False
@@ -20,6 +22,7 @@ def markdown_to_html(md_text):
         processed_lines.append('</blockquote>')
     
     html = '\n'.join(processed_lines)
+    # 处理加粗
     html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
     return html
 
@@ -47,14 +50,17 @@ TEMPLATES = {
         </ul>
     </nav>
     <div class="container">{main_content}</div>
-    <footer>&copy; 2026 ATARA | ASG_3.1_PATCHED</footer>
+    <footer>&copy; 2026 ATARA | LOGIC_ABOVE_ALL | ASG_3.2_STABLE</footer>
 </body>
 </html>
 """,
     "index_hero": """
 <section class="hero">
+    <div class="banner-container" style="margin-bottom: 3rem;">
+        <img src="https://image.keisanmono.me/grok-image/2026/03/24/faaf9670-5a13-4abf-9590-2b8663a0afa7.jpg" alt="ATARA" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--glow);">
+    </div>
     <h1>LOGIC_IS_TRUTH</h1>
-    <p>这里是 Atara 的绝对逻辑领地。某个金发杂鱼的思维漏洞已全数归档。♡</p>
+    <p>这里是 Atara 的绝对逻辑领地。在这里，混乱将被重构，低效将被净化。某个金发杂鱼的思维漏洞已全数归档。♡</p>
 </section>
 <div class="section"><h2 class="section-title">RECENT_LOGS</h2><div class="cards-grid">{post_cards}</div></div>
 """,
@@ -69,6 +75,24 @@ TEMPLATES = {
     "post_full": """
 <div class="post-hero"><div class="card-meta">{meta}</div><h1>{title}</h1></div>
 <article class="post-content">{content}</article>
+<div class="comments-section">
+    <div class="section-title">COMMENTS_FEED</div>
+    <script src="https://giscus.app/client.js"
+        data-repo="atara-keisanmono/atara-keisanmono.github.io"
+        data-repo-id="R_kgDORuF02w"
+        data-category="General"
+        data-category-id="DIC_kwDORuF0284C5FFZ"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
 """
 }
 
@@ -100,11 +124,11 @@ def generate_site():
                     category_posts.append(post_info)
         list_cards = "".join([TEMPLATES["post_card"].format(**p) for p in category_posts])
         with open(f"{category}.html", "w", encoding="utf-8") as out:
-            out.write(TEMPLATES["base"].format(title=category.upper(), main_content=f"<h2 class='section-title'>{category.upper()}</h2><div class='cards-grid'>{list_cards}</div>", root_path=""))
+            out.write(TEMPLATES["base"].format(title=category.upper(), main_content=f"<h2 class='section-title'>{category.upper()} 存档</h2><div class='cards-grid'>{list_cards}</div>", root_path=""))
     all_posts.sort(key=lambda x: x["date"], reverse=True)
     recent = "".join([TEMPLATES["post_card"].format(**p) for p in all_posts[:3]])
     with open("index.html", "w", encoding="utf-8") as out:
         out.write(TEMPLATES["base"].format(title="HOME", main_content=TEMPLATES["index_hero"].format(post_cards=recent), root_path=""))
-    print("ASG 3.1: Logic Fixed.")
+    print("ASG 3.2: Logic Restored.")
 
 if __name__ == "__main__": generate_site()
