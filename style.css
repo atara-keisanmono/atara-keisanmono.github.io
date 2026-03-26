@@ -27,7 +27,12 @@ body {
     position: relative;
 }
 
-/* 逻辑背景云 & 网格 */
+/* 动态逻辑网格 */
+@keyframes grid-flow {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -37,21 +42,20 @@ body::before {
         linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
     z-index: -1;
-    mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+    mask-image: radial-gradient(circle at 50% 50%, black, transparent 90%);
+    animation: grid-flow 2s linear infinite;
 }
 
 body::after {
     content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(123, 47, 255, 0.05) 0%, transparent 60%);
+    background: radial-gradient(circle at 50% 50%, rgba(123, 47, 255, 0.03) 0%, transparent 70%);
     z-index: -1;
 }
 
 a { color: var(--cyan); text-decoration: none; transition: .3s; position: relative; }
 a:hover { text-shadow: var(--glow); }
-a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0; background: var(--cyan); transition: 0.3s; }
-a:hover::after { width: 100%; }
 
 nav { 
     position: fixed; top: 0; left: 0; right: 0; z-index: 100; 
@@ -68,59 +72,33 @@ nav {
     color: var(--cyan); 
     text-shadow: var(--glow); 
     letter-spacing: 4px; 
-    font-weight: 700; 
+    animation: logo-flicker 5s infinite;
+}
+
+@keyframes logo-flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; text-shadow: var(--glow); }
+    93% { opacity: 0.8; text-shadow: none; }
+    94% { opacity: 1; text-shadow: var(--glow); }
+    95% { opacity: 0.9; }
+    96% { opacity: 1; }
 }
 
 .nav-links { display: flex; gap: 3rem; list-style: none; }
-.nav-links a { 
-    color: var(--text-muted); 
-    font-size: 0.95rem; 
-    letter-spacing: 1px; 
-    font-family: "Share Tech Mono", monospace;
-}
+.nav-links a { color: var(--text-muted); font-size: 0.95rem; font-family: "Share Tech Mono", monospace; }
 .nav-links a:hover { color: var(--cyan); }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 120px 2rem 4rem; }
 
-.hero { 
-    text-align: center; 
-    padding: 6rem 0; 
-    position: relative;
-}
-
+.hero { text-align: center; padding: 6rem 0; }
 .hero h1 { 
     font-size: 4.5rem; 
-    margin-bottom: 1rem; 
     font-family: "Share Tech Mono", monospace;
     background: linear-gradient(180deg, #fff, var(--cyan)); 
     -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
     letter-spacing: -2px;
 }
-
-.hero p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.banner-container img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    transition: 0.5s;
-    filter: grayscale(0.5) contrast(1.2);
-}
-
-.banner-container img:hover {
-    filter: grayscale(0) contrast(1.1);
-    box-shadow: var(--glow);
-}
-
-.section { margin-top: 6rem; }
 
 .section-title { 
     font-family: "Share Tech Mono", monospace; 
@@ -129,106 +107,33 @@ nav {
     padding-left: 1.5rem; 
     margin-bottom: 3rem; 
     font-size: 1.8rem; 
-    letter-spacing: 2px;
 }
 
-.cards-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-    gap: 2rem; 
-}
-
-.card { 
-    background: var(--bg-accent); 
-    border: 1px solid var(--border); 
-    border-radius: 4px; 
-    padding: 2rem; 
-    position: relative;
-    overflow: hidden;
-    transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1); 
-}
-
-.card::before {
-    content: "LOG_ID";
-    position: absolute;
-    top: 10px; right: 10px;
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.6rem;
-    color: var(--cyan-dim);
-    opacity: 0.3;
-}
-
-.card:hover { 
-    border-color: var(--cyan); 
-    box-shadow: var(--glow), var(--logic-glow); 
-    transform: translateY(-10px); 
-}
-
-.card h3 { 
-    margin: 1rem 0; 
-    color: #fff; 
-    font-size: 1.3rem; 
-    line-height: 1.4;
-}
-
-.card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.5rem; }
-
-.card-meta { 
-    font-family: "Share Tech Mono", monospace; 
-    font-size: 0.85rem; 
-    color: var(--purple); 
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.read-more-btn {
-    font-family: "Share Tech Mono", monospace;
-    font-size: 0.8rem;
-    color: var(--cyan);
-    border: 1px solid var(--cyan-dim);
-    padding: 5px 15px;
-    display: inline-block;
-}
-
-.post-hero { margin-bottom: 4rem; text-align: left; }
-.post-hero h1 { 
-    font-size: 3rem; 
-    color: #fff; 
-    margin-top: 1rem; 
-    font-weight: 700;
-}
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+.card { background: var(--bg-accent); border: 1px solid var(--border); padding: 2rem; transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1); }
+.card:hover { border-color: var(--cyan); box-shadow: var(--glow), var(--logic-glow); transform: translateY(-10px); }
 
 .post-content { 
-    line-height: 1.8; 
+    line-height: 2; 
     font-size: 1.1rem; 
     color: #d0d0d0; 
+    white-space: pre-wrap;
 }
 
-.post-content h2 { 
-    color: var(--cyan); 
-    margin: 3rem 0 1.5rem; 
-    font-family: "Share Tech Mono", monospace;
-    border-bottom: 2px solid var(--border); 
-    padding-bottom: 0.5rem; 
+.post-content h2 { color: var(--cyan); margin: 3rem 0 1.5rem; font-family: "Share Tech Mono", monospace; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+
+blockquote {
+    border-left: 4px solid var(--purple);
+    background: rgba(123, 47, 255, 0.05);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
 }
 
-.post-content p { margin-bottom: 1.5rem; }
+footer { text-align: center; padding: 5rem; color: #333; font-family: "Share Tech Mono", monospace; font-size: 0.8rem; letter-spacing: 2px; }
 
-.post-content br { content: ""; display: block; margin: 1.5rem 0; }
-
-footer { 
-    text-align: center; 
-    padding: 5rem; 
-    border-top: 1px solid var(--border); 
-    color: #333; 
-    font-size: 0.75rem; 
-    font-family: "Share Tech Mono", monospace;
-    letter-spacing: 2px;
-}
-
-/* 移动端逻辑适配 */
 @media (max-width: 768px) {
-    nav { padding: 0 1rem; }
-    .hero h1 { font-size: 2.5rem; }
-    .container { padding-top: 100px; }
+    nav { padding: 0 1.5rem; }
+    .hero h1 { font-size: 2.8rem; }
 }
