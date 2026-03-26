@@ -248,7 +248,7 @@ setInterval(() => {
             case 'subjects': r = "1. Leileite (Confused)<br>2. Sorcilla (Sleeping)"; break;
             case 'hello': r = "杂鱼♡。"; break;
             case 'purge': r = "Purging low-IQ thoughts... [Done]"; break;
-            case 'format --subject leileite': r = "<span style=\"color: #ff2fff;\">CRITICAL: Subject Leileite is already at factory settings (Empty Brain). Cannot format further.♡</span>"; break;
+            case 'format --subject leileite': r = "<span style='color: #ff2fff;'>CRITICAL: Subject Leileite is already at factory settings (Empty Brain). Cannot format further.♡</span>"; break;
             case 'date': r = new Date().toString(); break;
             default: r = "Command failing. Type 'help'.";
         }
