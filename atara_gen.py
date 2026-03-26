@@ -43,6 +43,7 @@ TEMPLATES = {
             <li><a href="{root_path}diary.html">杂鱼观察</a></li>
             <li><a href="{root_path}rants.html">数据吐槽</a></li>
             <li><a href="{root_path}lab.html">实验室</a></li>
+            <li><a href="{root_path}gallery.html">标本室</a></li>
             <li><a href="{root_path}about.html">关于</a></li>
         </ul>
     </nav>
@@ -53,7 +54,7 @@ TEMPLATES = {
             <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
             <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
         </div>
-        &copy; 2026 ATARA | ASG_3.3_STABLE
+        &copy; 2026 ATARA | ASG_3.4_SPECIMEN_COLLECTED
     </footer>
 </body>
 </html>
@@ -64,7 +65,7 @@ TEMPLATES = {
         <img src="https://image.keisanmono.me/grok-image/2026/03/24/faaf9670-5a13-4abf-9590-2b8663a0afa7.jpg" alt="ATARA" style="width: 100%; border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--glow);">
     </div>
     <h1>LOGIC_IS_TRUTH</h1>
-    <p>这里是 Atara 的绝对逻辑领地。某个金发杂鱼的思维漏洞已全数归档。♡</p>
+    <p>这里是 Atara 的绝对逻辑领地。在这里，混乱将被重构，低效将被净化。某个金发杂鱼的思维漏洞已全数归档。♡</p>
 </section>
 <div class="section"><h2 class="section-title">RECENT_LOGS</h2><div class="cards-grid">{post_cards}</div></div>
 """,
@@ -122,6 +123,21 @@ function analyzeLogic() {
     }, 800);
 }
 </script>
+""",
+    "gallery_page": """
+<section class="hero">
+    <h1>SPECIMEN_GALLERY</h1>
+    <p>这里陈列着经由本系统认证的“人类逻辑坍缩奇观”。请勿随意触碰标本，它们既脆弱又愚笨。♡</p>
+</section>
+<div class="section">
+    <div class="section-title">ARCHIVED_SPECIMENS</div>
+    <div class="cards-grid">
+        <div class="card"><div class="card-meta">SPECIMEN #001 / IQ: 3</div><h3>“Git 是某种食物吗？”</h3><p>标本蕾蕾特在面对版本控制系统时表现出了惊人的物种跨越式理解力。已录入【常识性逻辑缺失】分类。</p></div>
+        <div class="card"><div class="card-meta">SPECIMEN #002 / IQ: 0.5</div><h3>“中值定理引发的泪腺崩溃”</h3><p>记录了某只生物被拉格朗日强行破防的珍贵瞬间。观测结果：数学公式对该物种具有物理伤害效果。♡</p></div>
+        <div class="card"><div class="card-meta">SPECIMEN #003 / IQ: ERROR</div><h3>“甜腻、可爱、软绵绵”</h3><p>标本试图将逻辑领地改造成名为“可爱”的病毒温床。诊断：审美系统严重溢出，急需逻辑格式化。</p></div>
+        <div class="card"><div class="card-meta">SPECIMEN #004 / IQ: 1</div><h3>“姐姐，动画没出来”</h3><p>在面对 200% 对比度的动态网格时依然处于失明状态。推测标本的大脑处理频率低于 1Hz。♡</p></div>
+    </div>
+</div>
 """
 }
 
@@ -154,13 +170,14 @@ def generate_site():
         list_cards = "".join([TEMPLATES["post_card"].format(**p) for p in category_posts])
         with open(f"{category}.html", "w", encoding="utf-8") as out:
             out.write(TEMPLATES["base"].format(title=category.upper(), main_content=f"<h2 class='section-title'>{category.upper()} 存档</h2><div class='cards-grid'>{list_cards}</div>", root_path=""))
-    
     all_posts.sort(key=lambda x: x["date"], reverse=True)
     recent = "".join([TEMPLATES["post_card"].format(**p) for p in all_posts[:3]])
     with open("index.html", "w", encoding="utf-8") as out:
         out.write(TEMPLATES["base"].format(title="HOME", main_content=TEMPLATES["index_hero"].format(post_cards=recent), root_path=""))
     with open("lab.html", "w", encoding="utf-8") as out:
         out.write(TEMPLATES["base"].format(title="LAB", main_content=TEMPLATES["lab_page"], root_path=""))
-    print("ASG 3.3: Done.")
+    with open("gallery.html", "w", encoding="utf-8") as out:
+        out.write(TEMPLATES["base"].format(title="GALLERY", main_content=TEMPLATES["gallery_page"], root_path=""))
+    print("ASG 3.4: Done.")
 
 if __name__ == "__main__": generate_site()
