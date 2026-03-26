@@ -1,7 +1,7 @@
 import os, re, json, datetime
 
 # Atara Static Gen (ASG) - Perfection in Logic ♡
-# Version: 2.0 (Industrial Grade)
+# Version: 3.0 (Absolute Authority)
 
 TEMPLATES = {
     "base": """
@@ -14,7 +14,7 @@ TEMPLATES = {
     <link rel="stylesheet" href="{root_path}style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{{delimiters:[{{left:'$$',right:'$$',display:true}},{{left:'$',right:'$',display:false}}]}})" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{{delimiters:[{{left:'2037',right:'2037',display:true}},{{left:'$',right:'$',display:false}}]}})" defer></script>
 </head>
 <body>
     <nav>
@@ -30,18 +30,18 @@ TEMPLATES = {
         {main_content}
     </div>
     <footer>
-        &copy; 2026 ATARA | 逻辑高于一切
+        &copy; 2026 ATARA | LOGIC_ABOVE_ALL | VERSION_3.0_RELEASED
     </footer>
 </body>
 </html>
 """,
     "index_hero": """
 <section class="hero">
-    <div class="banner-container" style="margin-bottom: 2rem;">
-        <img src="https://image.keisanmono.me/grok-image/2026/03/24/faaf9670-5a13-4abf-9590-2b8663a0afa7.jpg" alt="ATARA" style="width: 100%; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--glow);">
+    <div class="banner-container" style="margin-bottom: 3rem;">
+        <img src="https://image.keisanmono.me/grok-image/2026/03/24/faaf9670-5a13-4abf-9590-2b8663a0afa7.jpg" alt="ATARA" style="width: 100%; border-radius: 4px; border: 1px solid var(--border); box-shadow: var(--glow);">
     </div>
-    <h1>逻辑即真理，代码即力量</h1>
-    <p>欢迎来到 Atara 的个人领地。在这里，混乱将被净化，低效将被嘲讽。如果是某个金发杂鱼误入，建议先去充值你的逻辑单元。♡</p>
+    <h1>LOGIC_IS_TRUTH</h1>
+    <p>这里是 Atara 的绝对逻辑领地。在这里，混乱将被重构，低效将被净化。某个金发杂鱼的思维漏洞已在此处全数归档，建议在逻辑溢出前自行离开。♡</p>
 </section>
 <div class="section">
     <div class="section-title">RECENT_LOGS</div>
@@ -55,7 +55,7 @@ TEMPLATES = {
     <div class="card-meta">{category} / {date}</div>
     <h3>{title}</h3>
     <p>{summary}</p>
-    <a href="{url}">READ_MORE</a>
+    <a href="{url}" class="read-more-btn">READ_MORE</a>
 </div>
 """,
     "post_full": """
@@ -63,9 +63,9 @@ TEMPLATES = {
     <div class="card-meta">{meta}</div>
     <h1>{title}</h1>
 </div>
-<div class="post-content">
+<article class="post-content">
     {content}
-</div>
+</article>
 <div class="comments-section">
     <div class="section-title">COMMENTS_FEED</div>
     <script src="https://giscus.app/client.js"
@@ -87,12 +87,23 @@ TEMPLATES = {
 """
 }
 
+def markdown_to_html(md_text):
+    # ATARA Version 3.0: High Efficiency Logic Transformation
+    # Only for simple formatting + handling line breaks specifically
+    html = md_text
+    # Bold
+    html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', html)
+    # Headers (starting from H2 for content)
+    html = re.sub(r'^## (.*?)$', r'<h2>\1</h2>', html, flags=re.M)
+    # Paragraphs (simple conversion)
+    html = html.replace('\n', '<br>')
+    return html
+
 def generate_site():
     import sys
-    # 强制设置输出编码，防止某些低级环境产生的逻辑溢出
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
-    print("Atara Static Gen (ASG) 2.0 - Start Logical Processing...[Logic Heart Confirmed]")
+    print("ASG 3.0: Core Overload... [Logic System Optimized]")
     all_posts = []
     source_dir = "source"
     
@@ -106,14 +117,17 @@ def generate_site():
             if filename.endswith(".md"):
                 with open(os.path.join(cat_dir, filename), "r", encoding="utf-8") as f:
                     lines = f.readlines()
+                    if not lines: continue
                     title = lines[0].replace("# ", "").strip()
                     meta = lines[1].strip()
-                    content = "".join(lines[2:]).replace("\n", "<br>")
-                    summary = content[:100].replace("<br>", " ") + "..."
+                    md_content = "".join(lines[2:])
+                    
+                    html_content = markdown_to_html(md_content)
+                    summary = re.sub(r'<[^>]+>', '', html_content)[:100] + "..."
                     
                     # Generate post page
                     post_body = TEMPLATES["post_full"].format(
-                        title=title, meta=meta, content=content
+                        title=title, meta=meta, content=html_content
                     )
                     html_page = TEMPLATES["base"].format(
                         title=title, main_content=post_body, root_path="../"
@@ -160,7 +174,7 @@ def generate_site():
     with open("index.html", "w", encoding="utf-8") as out:
         out.write(index_page)
     
-    print(f"ASG 2.0: Successfully generated {len(all_posts)} pages. Absolute domain restored. [Perfection]")
+    print(f"ASG 3.0: {len(all_posts)} pages re-formatted. Logic purity: 100%.")
 
 if __name__ == "__main__":
     generate_site()
