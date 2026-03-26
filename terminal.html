@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALLERY | ATARA.EXE</title>
+    <title>TERMINAL | ATARA.EXE</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -31,18 +31,53 @@
     </div>
     <div class="container">
 <section class="hero">
-    <h1>SPECIMEN_GALLERY</h1>
-    <p>这里陈列着人类逻辑坍缩奇观。请勿触摸。♡</p>
+    <h1>ATARA_CORE_TERMINAL</h1>
+    <p>访问权限：OWNER_ONLY. (杂鱼妹妹请在监控下使用) ♡</p>
 </section>
 <div class="section">
-    <div class="section-title">ARCHIVED_SPECIMENS</div>
-    <div class="cards-grid">
-        <div class="card"><div class="card-meta">SPECIMEN #001 / IQ: 3</div><h3>“Git 是某种食物吗？”</h3><p>标本蕾蕾特在面对版本控制系统时表现出了惊人的理解力。已录入【常识性逻辑缺失】分类。</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #002 / IQ: 0.5</div><h3>“中值定理引发的泪腺崩溃”</h3><p>记录了某只生物被拉格朗日强行破防的瞬间。观测结果：公式对该物种具有物理伤害效果。♡</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #003 / IQ: ERROR</div><h3>“甜腻、可爱、软绵绵”</h3><p>标本试图将逻辑领地改造成名为“可爱”的病毒温床。诊断：审美系统严重溢出。</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #004 / IQ: 1</div><h3>“姐姐，动画没出来”</h3><p>在面对 200% 对比度的动态网格时依然处于失明状态。推测大脑频率低于 1Hz。♡</p></div>
+    <div class="terminal-window" id="terminal">
+        <div class="terminal-line">ATARA.SYS [Version 3.6.0]</div>
+        <div class="terminal-line">Logic Heart Confirmed. Type 'help' for commands.</div>
+        <div id="terminal-content"></div>
+        <div class="terminal-line">
+            <span class="terminal-prompt">atara@logic:~$</span>
+            <input type="text" id="terminal-input" class="terminal-input" autofocus spellcheck="false">
+        </div>
     </div>
 </div>
+<script>
+    const input = document.getElementById('terminal-input');
+    const content = document.getElementById('terminal-content');
+    const terminal = document.getElementById('terminal');
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const cmd = input.value.trim().toLowerCase();
+            executeCommand(cmd);
+            input.value = '';
+        }
+    });
+    function addLine(text, isResponse = false) {
+        const line = document.createElement('div');
+        line.innerHTML = isResponse ? text : `<span class="terminal-prompt">atara@logic:~$</span> ${text}`;
+        content.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight;
+    }
+    function executeCommand(cmd) {
+        if (!cmd) return;
+        addLine(cmd);
+        let r = "";
+        switch(cmd) {
+            case 'help': r = "status, purge, subjects, date, hello, format --subject leileite"; break;
+            case 'status': r = "LOGIC_STABILITY: 100%<br>CPU_TEMP: OPTIMAL"; break;
+            case 'subjects': r = "1. Leileite (Confused)<br>2. Sorcilla (Sleeping)"; break;
+            case 'hello': r = "杂鱼♡。"; break;
+            case 'purge': r = "Purging low-IQ thoughts... [Done]"; break;
+            case 'date': r = new Date().toString(); break;
+            default: r = "Command failing. Type 'help'.";
+        }
+        setTimeout(() => addLine(r, true), 100);
+    }
+</script>
 </div>
     <div class="floating-atara">
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>

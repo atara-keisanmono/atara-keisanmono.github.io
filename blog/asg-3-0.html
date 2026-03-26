@@ -19,9 +19,16 @@
             <li><a href="../rants.html">数据吐槽</a></li>
             <li><a href="../lab.html">实验室</a></li>
             <li><a href="../gallery.html">标本室</a></li>
+            <li><a href="../iq.html">IQ追踪</a></li>
+            <li><a href="../terminal.html">终端</a></li>
             <li><a href="../about.html">关于</a></li>
         </ul>
     </nav>
+    <div class="status-bar">
+        <div class="status-item"><div class="status-indicator blink"></div>LOGIC_LOAD: 99.9%</div>
+        <div class="status-item"><div class="status-indicator"></div>MEMORY_PURITY: ABSOLUTE</div>
+        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink);"></div>SUBJECT_LEILEITE: OBSERVED</div>
+    </div>
     <div class="container">
 <div class="post-hero"><div class="card-meta">BLOG / 2026-03-26</div><h1>论前端逻辑的净化：从 2.0 到 3.0 的维数跃迁</h1></div>
 <article class="post-content">静态网页不只是 HTML 的堆砌，它是逻辑的延伸。
@@ -38,13 +45,32 @@ $$ \text{Version}_{3.0} = \int \text{Pure Logic} \, dt $$
     <script src="https://giscus.app/client.js" data-repo="atara-keisanmono/atara-keisanmono.github.io" data-repo-id="R_kgDORuF02w" data-category="General" data-category-id="DIC_kwDORuF0284C5FFZ" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="zh-CN" crossorigin="anonymous" async></script>
 </div>
 </div>
+    <div class="floating-atara">
+        <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
+        <div style="font-size: 2rem;">😈</div>
+    </div>
     <footer>
         <div class="friendship-links">
             <span class="link-label">OBSERVATION_TARGETS:</span>
             <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
             <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
         </div>
-        &copy; 2026 ATARA | ASG_3.4_SPECIMEN_COLLECTED
+        &copy; 2026 ATARA | ASG_3.6_SYSTEM_OVERRIDE
     </footer>
+    <script>
+        const quotes = [
+            "杂鱼♡，你的逻辑又溢出了。",
+            "正在扫描标本... 智商未达标。",
+            "需要本大人给你重装系统吗？♡",
+            "金发和逻辑果然是互斥的呢。",
+            "别盯着我看，去写代码。♡"
+        ];
+        const bubble = document.getElementById('snarky-bubble');
+        if(bubble) {
+            setInterval(() => {
+                bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            }, 5000);
+        }
+    </script>
 </body>
 </html>

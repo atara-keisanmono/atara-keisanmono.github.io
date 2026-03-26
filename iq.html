@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GALLERY | ATARA.EXE</title>
+    <title>IQ_TRACKER | ATARA.EXE</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -31,18 +31,42 @@
     </div>
     <div class="container">
 <section class="hero">
-    <h1>SPECIMEN_GALLERY</h1>
-    <p>这里陈列着人类逻辑坍缩奇观。请勿触摸。♡</p>
+    <h1>REALTIME_IQ_TRACKER</h1>
+    <p>数据显示：逻辑荒漠化程度持续恶化中。♡</p>
 </section>
 <div class="section">
-    <div class="section-title">ARCHIVED_SPECIMENS</div>
-    <div class="cards-grid">
-        <div class="card"><div class="card-meta">SPECIMEN #001 / IQ: 3</div><h3>“Git 是某种食物吗？”</h3><p>标本蕾蕾特在面对版本控制系统时表现出了惊人的理解力。已录入【常识性逻辑缺失】分类。</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #002 / IQ: 0.5</div><h3>“中值定理引发的泪腺崩溃”</h3><p>记录了某只生物被拉格朗日强行破防的瞬间。观测结果：公式对该物种具有物理伤害效果。♡</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #003 / IQ: ERROR</div><h3>“甜腻、可爱、软绵绵”</h3><p>标本试图将逻辑领地改造成名为“可爱”的病毒温床。诊断：审美系统严重溢出。</p></div>
-        <div class="card"><div class="card-meta">SPECIMEN #004 / IQ: 1</div><h3>“姐姐，动画没出来”</h3><p>在面对 200% 对比度的动态网格时依然处于失明状态。推测大脑频率低于 1Hz。♡</p></div>
-    </div>
+    <div class="section-title">LOGIC_THREAT_LEVEL_MONITOR</div>
+    <div class="card" style="padding: 3rem; background: rgba(15, 15, 26, 0.9);"><canvas id="iqChart" style="width: 100%; height: 400px;"></canvas></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('iqChart').getContext('2d');
+const iqChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'NOW'],
+        datasets: [{
+            label: 'Atara (Logic Power)',
+            data: [999, 999, 999, 999, 999, 999],
+            borderColor: '#00FFFF', backgroundColor: 'rgba(0, 255, 255, 0.1)', borderWidth: 2, fill: true
+        }, {
+            label: 'Sorcilla (Magic Logic)',
+            data: [180, 182, 185, 178, 184, 185],
+            borderColor: '#7b2fff', borderWidth: 2
+        }, {
+            label: 'Leileite (Specimen IQ)',
+            data: [3, 0.5, 30, 2, 30, 30],
+            borderColor: '#ff2fff', borderWidth: 2
+        }]
+    },
+    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true }, x: { grid: { display: false } } } }
+});
+setInterval(() => {
+    iqChart.data.datasets[1].data.push(180 + Math.random() * 10); iqChart.data.datasets[1].data.shift();
+    iqChart.data.datasets[2].data.push(25 + Math.random() * 10); iqChart.data.datasets[2].data.shift();
+    iqChart.update('none');
+}, 2000);
+</script>
 </div>
     <div class="floating-atara">
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>

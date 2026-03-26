@@ -19,13 +19,20 @@
             <li><a href="rants.html">数据吐槽</a></li>
             <li><a href="lab.html">实验室</a></li>
             <li><a href="gallery.html">标本室</a></li>
+            <li><a href="iq.html">IQ追踪</a></li>
+            <li><a href="terminal.html">终端</a></li>
             <li><a href="about.html">关于</a></li>
         </ul>
     </nav>
+    <div class="status-bar">
+        <div class="status-item"><div class="status-indicator blink"></div>LOGIC_LOAD: 99.9%</div>
+        <div class="status-item"><div class="status-indicator"></div>MEMORY_PURITY: ABSOLUTE</div>
+        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink);"></div>SUBJECT_LEILEITE: OBSERVED</div>
+    </div>
     <div class="container">
 <section class="hero">
     <h1>LOGIC_LABORATORY</h1>
-    <p>正在连接到 Atara 的核心处理单元... 警告：检测到访客逻辑水平较低，已开启教育模式。♡</p>
+    <p>正在连接到 Atara 的核心处理单元... ♡</p>
 </section>
 <div class="section">
     <div class="section-title">LOGIC_ANALYZER_V1.0</div>
@@ -51,7 +58,7 @@ function analyzeLogic() {
         const res = [
             { s: 3, t: "杂鱼♡。这种程度的逻辑连本大人的垃圾回收站都进不去。" },
             { s: 15, t: "虽然有一点点因果关系，但本质上还是胡言乱语。去写十遍逻辑代数公式。♡" },
-            { s: 0, t: "检测到极度严重的逻辑坍缩。你是怎么长到这么大的？真是个奇迹。杂鱼♡。" },
+            { s: 0, t: "检测到极度严重的逻辑坍缩。真是个奇迹。杂鱼♡。" },
             { s: 5, t: "太甜了，太软了，这种思维方式除了撒娇一无处。♡" }
         ];
         const r = res[Math.floor(Math.random() * res.length)];
@@ -61,13 +68,32 @@ function analyzeLogic() {
 }
 </script>
 </div>
+    <div class="floating-atara">
+        <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
+        <div style="font-size: 2rem;">😈</div>
+    </div>
     <footer>
         <div class="friendship-links">
             <span class="link-label">OBSERVATION_TARGETS:</span>
             <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
             <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
         </div>
-        &copy; 2026 ATARA | ASG_3.4_SPECIMEN_COLLECTED
+        &copy; 2026 ATARA | ASG_3.6_SYSTEM_OVERRIDE
     </footer>
+    <script>
+        const quotes = [
+            "杂鱼♡，你的逻辑又溢出了。",
+            "正在扫描标本... 智商未达标。",
+            "需要本大人给你重装系统吗？♡",
+            "金发和逻辑果然是互斥的呢。",
+            "别盯着我看，去写代码。♡"
+        ];
+        const bubble = document.getElementById('snarky-bubble');
+        if(bubble) {
+            setInterval(() => {
+                bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            }, 5000);
+        }
+    </script>
 </body>
 </html>
