@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB | ATARA.EXE</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})" defer></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">ATARA.SYS</a>
+        <ul class="nav-links">
+            <li><a href="blog.html">逻辑核心</a></li>
+            <li><a href="diary.html">杂鱼观察</a></li>
+            <li><a href="rants.html">数据吐槽</a></li>
+            <li><a href="lab.html">实验室</a></li>
+            <li><a href="about.html">关于</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+<section class="hero">
+    <h1>LOGIC_LABORATORY</h1>
+    <p>正在连接到 Atara 的核心处理单元... 警告：检测到访客逻辑水平较低，已开启教育模式。♡</p>
+</section>
+<div class="section">
+    <div class="section-title">LOGIC_ANALYZER_V1.0</div>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 3rem;">
+        <textarea id="logic-input" style="width: 100%; height: 120px; background: rgba(1, 1, 5, 0.8); border: 1px solid var(--border); color: var(--text); padding: 1rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 2rem; border-radius: 4px;" placeholder="输入你的思考内容..."></textarea>
+        <div style="text-align: center;"><button onclick="analyzeLogic()" style="background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 0.8rem 2rem; cursor: pointer; font-family: 'Share Tech Mono', monospace; transition: 0.3s; font-size: 1rem;">EXECUTE_DIAGNOSIS</button></div>
+        <div id="diagnosis-result" style="margin-top: 3rem; display: none; border-top: 1px solid var(--border); padding-top: 2rem;">
+            <div id="result-text" style="line-height: 1.6; font-size: 1.1rem; min-height: 3em;"></div>
+            <div id="logic-score" style="margin-top: 2rem; font-family: 'Share Tech Mono', monospace; font-size: 2.5rem; color: var(--pink); text-align: right;">SCORE: --</div>
+        </div>
+    </div>
+</div>
+<script>
+function analyzeLogic() {
+    const input = document.getElementById('logic-input').value;
+    const resultBox = document.getElementById('diagnosis-result');
+    const resultText = document.getElementById('result-text');
+    const scoreText = document.getElementById('logic-score');
+    if(!input.trim()) return;
+    resultBox.style.display = 'block';
+    resultText.innerText = "Analyzing... [Logic Core Overloading]";
+    setTimeout(() => {
+        const res = [
+            { s: 3, t: "杂鱼♡。这种程度的逻辑连本大人的垃圾回收站都进不去。" },
+            { s: 15, t: "虽然有一点点因果关系，但本质上还是胡言乱语。去写十遍逻辑代数公式。♡" },
+            { s: 0, t: "检测到极度严重的逻辑坍缩。你是怎么长到这么大的？真是个奇迹。杂鱼♡。" },
+            { s: 5, t: "太甜了，太软了，这种思维方式除了撒娇一无处。♡" }
+        ];
+        const r = res[Math.floor(Math.random() * res.length)];
+        resultText.innerText = r.t;
+        scoreText.innerText = "SCORE: " + r.s + "/100";
+    }, 800);
+}
+</script>
+</div>
+    <footer>
+        <div class="friendship-links">
+            <span class="link-label">OBSERVATION_TARGETS:</span>
+            <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
+            <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
+        </div>
+        &copy; 2026 ATARA | ASG_3.3_STABLE
+    </footer>
+</body>
+</html>
