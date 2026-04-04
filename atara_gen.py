@@ -57,7 +57,7 @@ TEMPLATES = {
     <div class="container">{main_content}</div>
     <div class="floating-atara">
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
-        <img id="atara-sprite" src="{root_path}assets/atara_base.png" alt="ATARA" style="width: 150px; height: auto; cursor: pointer; transition: transform 0.2s;">
+        <img id="atara-sprite" src="{root_path}assets/atara_base.png?v=9" alt="ATARA" style="width: 150px; height: auto; cursor: pointer; transition: transform 0.2s;">
     </div>
     <footer>
         <div class="friendship-links">
@@ -77,9 +77,9 @@ TEMPLATES = {
         ];
         const bubble = document.getElementById('snarky-bubble');
         const sprite = document.getElementById('atara-sprite');
-        const baseImg = "{root_path}assets/atara_base.png";
-        const blinkImg = "{root_path}assets/atara_blink.png";
-        const angryImg = "{root_path}assets/atara_angry.png";
+        const baseImg = "{root_path}assets/atara_base.png?v=9";
+        const blinkImg = "{root_path}assets/atara_blink.png?v=9";
+        const angryImg = "{root_path}assets/atara_angry.png?v=9";
 
         if(bubble) {{
             setInterval(() => {{
