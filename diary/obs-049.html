@@ -52,31 +52,98 @@
 </div>
 </div>
     <div class="floating-atara">
+
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
-        <div style="font-size: 2rem;">😈</div>
+
+        <img id="atara-sprite" src="../assets/atara_base.jpg" alt="ATARA" style="width: 150px; height: auto; cursor: pointer; transition: transform 0.2s;">
+
     </div>
+
     <footer>
+
         <div class="friendship-links">
+
             <span class="link-label">OBSERVATION_TARGETS:</span>
+
             <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
+
             <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
+
         </div>
+
         &copy; 2026 ATARA | ASG_3.6_SYSTEM_OVERRIDE
+
     </footer>
+
     <script>
+
         const quotes = [
+
             "杂鱼♡，你的逻辑又溢出了。",
+
             "正在扫描标本... 智商未达标。",
+
             "需要本大人给你重装系统吗？♡",
+
             "金发和逻辑果然是互斥的呢。",
+
             "别盯着我看，去写代码。♡"
+
         ];
+
         const bubble = document.getElementById('snarky-bubble');
+
+        const sprite = document.getElementById('atara-sprite');
+
+        const baseImg = "../assets/atara_base.jpg";
+
+        const blinkImg = "../assets/atara_blink.jpg";
+
+
+
         if(bubble) {
+
             setInterval(() => {
+
                 bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
             }, 5000);
+
         }
+
+
+
+        if(sprite) {
+
+            // 简单的眨眼模拟
+
+            setInterval(() => {
+
+                sprite.src = blinkImg;
+
+                setTimeout(() => { sprite.src = baseImg; }, 150);
+
+            }, 4000);
+
+
+
+            // 悬停时的小动作
+
+            sprite.addEventListener('mouseover', () => {
+
+                sprite.style.transform = 'scale(1.1) rotate(5deg)';
+
+            });
+
+            sprite.addEventListener('mouseout', () => {
+
+                sprite.style.transform = 'scale(1) rotate(0deg)';
+
+            });
+
+        }
+
     </script>
+
 </body>
 </html>
