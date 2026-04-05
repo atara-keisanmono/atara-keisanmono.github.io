@@ -108,10 +108,15 @@
         const hitbox = document.getElementById('hitbox');
 
         const assets = {
-            base: "assets/atara_base.png?v=10",
-            blink: "assets/atara_blink.png?v=10",
-            angry: "assets/atara_angry.png?v=10",
-            talk: "assets/atara_talk.png?v=10"
+            base: "assets/atara_base.png?v=11",
+            blink: "assets/atara_blink.png?v=11",
+            angry: "assets/atara_angry.png?v=11",
+            talk: "assets/atara_talk.png?v=11",
+            left: "assets/atara_left.png?v=11",
+            right: "assets/atara_right.png?v=11",
+            up: "assets/atara_up.png?v=11",
+            down: "assets/atara_down.png?v=11",
+            inhale: "assets/atara_inhale.png?v=11"
         };
 
         const quotes = [
@@ -125,39 +130,59 @@
         let state = {
             isAngry: false,
             isTalking: false,
-            isBlinking: false
+            isBlinking: false,
+            currentInhale: 0 // 0 to 1 for breathing interpolation
         };
 
-        // 1. 视线追踪逻辑 (Look At Mouse)
+        // 1. 帧基视线追踪 (Look At Mouse via Image Swapping)
         document.addEventListener('mousemove', (e) => {
+            if (state.isAngry || state.isTalking || state.isBlinking) return;
+
             const rect = document.getElementById('tracker').getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            const deltaX = (e.clientX - centerX) / 25;
-            const deltaY = (e.clientY - centerY) / 25;
+            const dx = e.clientX - centerX;
+            const dy = e.clientY - centerY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+
+            if (dist < 50) {
+                sprite.src = assets.base;
+            } else if (Math.abs(dx) > Math.abs(dy)) {
+                sprite.src = dx > 0 ? assets.right : assets.left;
+            } else {
+                sprite.src = dy > 0 ? assets.down : assets.up;
+            }
             
-            // 限制旋转范围
-            const rX = Math.max(-10, Math.min(10, -deltaY));
-            const rY = Math.max(-15, Math.min(15, deltaX));
-            
-            stage.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg) translateZ(20px)`;
+            // 保持微小的 3D 效果增加深度感
+            stage.style.transform = `rotateX(${-dy/50}deg) rotateY(${dx/50}deg)`;
         });
 
-        // 2. 自动眨眼逻辑
+        // 2. 帧基呼吸模拟 (Breathing via Layer Overlap / Opacity)
+        // 注意：这里为了简单，我们交替切换 base 和 inhale
+        let inhaleTick = 0;
+        setInterval(() => {
+            if (state.isAngry || state.isTalking || state.isBlinking) return;
+            inhaleTick = (inhaleTick + 1) % 20;
+            if (inhaleTick === 0) sprite.src = assets.inhale;
+            if (inhaleTick === 10) sprite.src = assets.base;
+        }, 200);
+
+        // 3. 自动眨眼
         function blink() {
             if (state.isAngry || state.isTalking || state.isBlinking) return;
             state.isBlinking = true;
+            const prevSrc = sprite.src;
             sprite.src = assets.blink;
             setTimeout(() => {
-                if(!state.isAngry && !state.isTalking) sprite.src = assets.base;
+                sprite.src = prevSrc;
                 state.isBlinking = false;
                 setTimeout(blink, 3000 + Math.random() * 3000);
             }, 120);
         }
         setTimeout(blink, 2000);
 
-        // 3. 交互反馈
+        // 4. 交互
         hitbox.addEventListener('mouseenter', () => {
             state.isAngry = true;
             sprite.src = assets.angry;
