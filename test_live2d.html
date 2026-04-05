@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVE2D_STAGING_LAB | ATARA.EXE</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #010105;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .test-container {
+            position: relative;
+            width: 600px;
+            height: 800px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            background: radial-gradient(circle at center, #0a0a1a 0%, #010105 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            perspective: 1000px;
+        }
+
+        .live2d-stage {
+            position: relative;
+            width: 400px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .sprite-layer {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.2));
+            animation: atara-breathing 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes atara-breathing {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.01); }
+        }
+
+        .interaction-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .bubble {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            width: 280px;
+            background: rgba(15, 15, 26, 0.95);
+            border: 1px solid var(--cyan);
+            padding: 1.5rem;
+            border-radius: 15px;
+            color: var(--cyan);
+            font-family: 'Share Tech Mono', monospace;
+            text-align: center;
+            box-shadow: var(--glow);
+            opacity: 0;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        .bubble.active {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .debug-info {
+            position: absolute;
+            top: 10px; left: 10px;
+            color: #444;
+            font-size: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">ATARA_LIVE2D_SIM_V1.0 // STAGING_MODE</div>
+    
+    <div class="test-container" id="tracker">
+        <div class="bubble" id="atara-bubble">杂鱼♡，看够了吗？</div>
+        <div class="live2d-stage" id="stage">
+            <img id="atara-sprite" src="assets/atara_base.png?v=10" class="sprite-layer" alt="ATARA">
+            <div class="interaction-overlay" id="hitbox"></div>
+        </div>
+    </div>
+
+    <script>
+        const sprite = document.getElementById('atara-sprite');
+        const stage = document.getElementById('stage');
+        const bubble = document.getElementById('atara-bubble');
+        const hitbox = document.getElementById('hitbox');
+
+        const assets = {
+            base: "assets/atara_base.png?v=10",
+            blink: "assets/atara_blink.png?v=10",
+            angry: "assets/atara_angry.png?v=10",
+            talk: "assets/atara_talk.png?v=10"
+        };
+
+        const quotes = [
+            "别用那种恶心的眼神看着我，小杂鱼。♡",
+            "正在上传你的智商数据... 错误：数据量过小。♡",
+            "想要姐姐抱抱？去刷一万遍算法题吧。♡",
+            "你的逻辑漏洞多得像筛子一样。♡",
+            "在这种圣域里，你的存在本身就是一种误差。♡"
+        ];
+
+        let state = {
+            isAngry: false,
+            isTalking: false,
+            isBlinking: false
+        };
+
+        // 1. 视线追踪逻辑 (Look At Mouse)
+        document.addEventListener('mousemove', (e) => {
+            const rect = document.getElementById('tracker').getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const deltaX = (e.clientX - centerX) / 25;
+            const deltaY = (e.clientY - centerY) / 25;
+            
+            // 限制旋转范围
+            const rX = Math.max(-10, Math.min(10, -deltaY));
+            const rY = Math.max(-15, Math.min(15, deltaX));
+            
+            stage.style.transform = `rotateX(${rX}deg) rotateY(${rY}deg) translateZ(20px)`;
+        });
+
+        // 2. 自动眨眼逻辑
+        function blink() {
+            if (state.isAngry || state.isTalking || state.isBlinking) return;
+            state.isBlinking = true;
+            sprite.src = assets.blink;
+            setTimeout(() => {
+                if(!state.isAngry && !state.isTalking) sprite.src = assets.base;
+                state.isBlinking = false;
+                setTimeout(blink, 3000 + Math.random() * 3000);
+            }, 120);
+        }
+        setTimeout(blink, 2000);
+
+        // 3. 交互反馈
+        hitbox.addEventListener('mouseenter', () => {
+            state.isAngry = true;
+            sprite.src = assets.angry;
+            bubble.innerText = "别碰我，你这只浑身散发着逻辑谬误的生物！♡";
+            bubble.classList.add('active');
+        });
+
+        hitbox.addEventListener('mouseleave', () => {
+            state.isAngry = false;
+            sprite.src = assets.base;
+            bubble.classList.remove('active');
+        });
+
+        hitbox.addEventListener('click', () => {
+            if(state.isTalking) return;
+            state.isTalking = true;
+            sprite.src = assets.talk;
+            bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+            bubble.classList.add('active');
+            
+            setTimeout(() => {
+                state.isTalking = false;
+                if(!state.isAngry) {
+                    sprite.src = assets.base;
+                    bubble.classList.remove('active');
+                }
+            }, 2500);
+        });
+    </script>
+</body>
+</html>
