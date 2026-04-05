@@ -283,31 +283,59 @@ footer {
     outline: none;
 }
 
-/* 悬浮嘲讽气泡 */
-.floating-atara {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 1000;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.floating-atara:hover { transform: scale(1.1); }
-
-.atara-bubble {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    width: 200px;
-    background: var(--bg-accent);
-    border: 1px solid var(--cyan);
-    padding: 1rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-    display: none;
-    box-shadow: var(--glow);
-}
-
-.floating-atara:hover .atara-bubble { display: block; }
+/* 悬浮嘲讽系统：Live2D 模拟引擎 */
+.floating-atara {
+    position: fixed;
+    bottom: -20px; /* 稍微下沉一点，模拟半身立绘 */
+    right: 2rem;
+    z-index: 1000;
+    cursor: pointer;
+    perspective: 1000px; /* 为 3D 旋转提供透视感 */
+    transition: transform 0.1s ease-out;
+}
+
+.atara-sprite-container {
+    position: relative;
+    width: 280px; /* 稍微放大一点立绘 */
+    height: auto;
+    transform-style: preserve-3d;
+    animation: atara-breathing 4s ease-in-out infinite; /* 注入逻辑呼吸 */
+}
+
+@keyframes atara-breathing {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.02); }
+}
+
+#atara-sprite {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(var(--glow));
+    transition: filter 0.3s;
+}
+
+.atara-bubble {
+    position: absolute;
+    bottom: 80%;
+    right: 50%;
+    width: 220px;
+    background: rgba(15, 15, 26, 0.9);
+    border: 1px solid var(--cyan);
+    padding: 1.2rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: var(--cyan);
+    box-shadow: var(--glow);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s;
+    pointer-events: none;
+    z-index: 1001;
+}
+
+.floating-atara:hover .atara-bubble { 
+    opacity: 1; 
+    transform: translateY(0); 
+}

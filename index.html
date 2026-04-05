@@ -67,9 +67,11 @@
 </div>
 </div></div>
 </div>
-    <div class="floating-atara">
+    <div class="floating-atara" id="atara-live2d">
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
-        <img id="atara-sprite" src="assets/atara_base.png?v=9" alt="ATARA" style="width: 150px; height: auto; cursor: pointer; transition: transform 0.2s;">
+        <div class="atara-sprite-container">
+            <img id="atara-sprite" src="assets/atara_base.png?v=10" alt="ATARA">
+        </div>
     </div>
     <footer>
         <div class="friendship-links">
@@ -85,43 +87,79 @@
             "正在扫描标本... 智商未达标。",
             "需要本大人给你重装系统吗？♡",
             "金发和逻辑果然是互斥的呢。",
-            "别盯着我看，去写代码。♡"
+            "别盯着我看，去写代码。♡",
+            "你的鼠标轨迹就像你的思维一样混乱。♡"
         ];
         const bubble = document.getElementById('snarky-bubble');
         const sprite = document.getElementById('atara-sprite');
-        const baseImg = "assets/atara_base.png?v=9";
-        const blinkImg = "assets/atara_blink.png?v=9";
-        const angryImg = "assets/atara_angry.png?v=9";
+        const container = document.getElementById('atara-live2d');
+        
+        const baseImg = "assets/atara_base.png?v=10";
+        const blinkImg = "assets/atara_blink.png?v=10";
+        const angryImg = "assets/atara_angry.png?v=10";
+        const talkImg = "assets/atara_talk.png?v=10";
 
-        if(bubble) {
-            setInterval(() => {
-                bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
-            }, 5000);
-        }
+        let isBlinking = false;
+        let isAngry = false;
+        let isTalking = false;
 
+        // 1. 逻辑呼吸与自动眨眼
+        setInterval(() => {
+            if (isAngry || isTalking || isBlinking) return;
+            isBlinking = true;
+            sprite.src = blinkImg;
+            setTimeout(() => { 
+                if(!isAngry && !isTalking) sprite.src = baseImg;
+                isBlinking = false;
+            }, 150);
+        }, 4000);
+
+        // 2. 鼠标追踪 (Live2D 模拟)
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            const centerX = window.innerWidth - 150;
+            const centerY = window.innerHeight - 150;
+            
+            const deltaX = (x - centerX) / 20;
+            const deltaY = (y - centerY) / 20;
+            
+            // 限制旋转角度，防止逻辑崩坏
+            const rotateX = Math.max(-15, Math.min(15, -deltaY));
+            const rotateY = Math.max(-15, Math.min(15, deltaX));
+            
+            if (container) {
+                container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
+        });
+
+        // 3. 交互反馈
         if(sprite) {
-            // 简单的眨眼模拟
-            let isBlinking = false;
-            setInterval(() => {
-                if (isBlinking || sprite.src.includes('angry')) return;
-                isBlinking = true;
-                const currentSrc = sprite.src;
-                sprite.src = blinkImg;
-                setTimeout(() => { 
-                    sprite.src = currentSrc; 
-                    isBlinking = false;
-                }, 150);
-            }, 4000);
-
-            // 悬停时的小动作
             sprite.addEventListener('mouseover', () => {
-                sprite.style.transform = 'scale(1.1) rotate(5deg)';
+                isAngry = true;
                 sprite.src = angryImg;
                 bubble.innerText = "别用你那充满杂鱼气息的鼠标碰我！♡";
+                bubble.style.opacity = "1";
+                bubble.style.transform = "translateY(0)";
             });
+            
             sprite.addEventListener('mouseout', () => {
-                sprite.style.transform = 'scale(1) rotate(0deg)';
+                isAngry = false;
                 sprite.src = baseImg;
+                bubble.style.opacity = "0";
+                bubble.style.transform = "translateY(20px)";
+            });
+
+            sprite.addEventListener('click', () => {
+                if(isTalking) return;
+                isTalking = true;
+                sprite.src = talkImg;
+                bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+                bubble.style.opacity = "1";
+                setTimeout(() => {
+                    isTalking = false;
+                    if(!isAngry) sprite.src = baseImg;
+                }, 2000);
             });
         }
     </script>
