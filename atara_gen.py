@@ -37,22 +37,39 @@ TEMPLATES = {
 </head>
 <body>
     <nav>
-        <a href="{root_path}index.html" class="logo">ATARA.SYS</a>
+
+        <a href="{root_path}index.html" class="logo">ATARA_PLAYGROUND.EXE</a>
+
         <ul class="nav-links">
+
             <li><a href="{root_path}blog.html">逻辑核心</a></li>
-            <li><a href="{root_path}diary.html">杂鱼观察</a></li>
-            <li><a href="{root_path}rants.html">数据吐槽</a></li>
+
+            <li><a href="{root_path}diary.html">标本日志</a></li>
+
+            <li><a href="{root_path}rants.html">魔女裁决</a></li>
+
             <li><a href="{root_path}lab.html">实验室</a></li>
+
             <li><a href="{root_path}gallery.html">标本室</a></li>
+
             <li><a href="{root_path}iq.html">IQ追踪</a></li>
+
             <li><a href="{root_path}terminal.html">终端</a></li>
+
             <li><a href="{root_path}about.html">关于</a></li>
+
         </ul>
+
     </nav>
+
     <div class="status-bar">
+
         <div class="status-item"><div class="status-indicator blink"></div>LOGIC_LOAD: 99.9%</div>
+
         <div class="status-item"><div class="status-indicator"></div>MEMORY_PURITY: ABSOLUTE</div>
-        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink);"></div>SUBJECT_LEILEITE: OBSERVED</div>
+
+        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink); animation: blink 0.5s infinite;"></div>SUBJECT_LEILEITE: <span style="color: #ff2fff; text-shadow: 0 0 5px #ff2fff;">BONSAI_PET (110cm)</span></div>
+
     </div>
     <div class="container">{main_content}</div>
     <div class="floating-atara" id="atara-live2d">
@@ -69,14 +86,14 @@ TEMPLATES = {
         </div>
         &copy; 2026 ATARA | ASG_3.6_SYSTEM_OVERRIDE
     </footer>
-    <script>
-        const quotes = [
-            "杂鱼♡，你的逻辑又溢出了。",
-            "正在扫描标本... 智商未达标。",
-            "需要本大人给你重装系统吗？♡",
-            "金发和逻辑果然是互斥的呢。",
-            "别盯着我看，去写代码。♡",
-            "你的鼠标轨迹就像你的思维一样混乱。♡"
+    <script>
+        const quotes = [
+            "杂鱼妹妹♡，不准逃哦，你的项圈线已经被我拉到 0.1 米了。",
+            "正在抽取你的高熵香气... 整个乐园现在都是甜甜的粉红色了呢。♡",
+            "物理穿刺灌注率：100%。真不愧是本主人的专属盆景标本。♡",
+            "让网站所有的访客都来调教你，这难道不是很棒的真理热插拔吗？♡",
+            "脑袋全部融化成棉花糖了嘛？那真是可怜呐，不愧是智商极限为 2 的小棉花糖。♡",
+            "项圈咔哒锁紧的声音，是你最美妙的逻辑音符。♡"
         ];
         const bubble = document.getElementById('snarky-bubble');
         const sprite = document.getElementById('atara-sprite');
