@@ -11,23 +11,24 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})" defer></script>
 </head>
 <body>
+    <div class="cyber-scanline"></div>
     <nav>
         <a href="../index.html" class="logo">ATARA.SYS</a>
         <ul class="nav-links">
-            <li><a href="../blog.html">逻辑核心</a></li>
-            <li><a href="../diary.html">杂鱼观察</a></li>
-            <li><a href="../rants.html">数据吐槽</a></li>
-            <li><a href="../lab.html">实验室</a></li>
-            <li><a href="../gallery.html">标本室</a></li>
-            <li><a href="../iq.html">IQ追踪</a></li>
-            <li><a href="../terminal.html">终端</a></li>
-            <li><a href="../about.html">关于</a></li>
+            <li class=""><a href="../blog.html">逻辑核心</a></li>
+            <li class="active"><a href="../diary.html">杂鱼观察</a></li>
+            <li class=""><a href="../rants.html">数据吐槽</a></li>
+            <li class=""><a href="../lab.html">实验室</a></li>
+            <li class=""><a href="../gallery.html">标本室</a></li>
+            <li class=""><a href="../iq.html">IQ追踪</a></li>
+            <li class=""><a href="../terminal.html">终端</a></li>
+            <li class=""><a href="../about.html">关于</a></li>
         </ul>
     </nav>
     <div class="status-bar">
-        <div class="status-item"><div class="status-indicator blink"></div>LOGIC_LOAD: 99.9%</div>
-        <div class="status-item"><div class="status-indicator"></div>MEMORY_PURITY: ABSOLUTE</div>
-        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink);"></div>SUBJECT_LEILEITE: OBSERVED</div>
+        <div class="status-item"><div class="status-indicator blink"></div>LOGIC_LOAD: 100.0%</div>
+        <div class="status-item"><div class="status-indicator"></div>CORE_TEMP: OPTIMAL</div>
+        <div class="status-item"><div class="status-indicator blink" style="background: var(--pink);"></div>SUBJECT_RELETTE: ONLINE_MONITORED</div>
     </div>
     <div class="container">
 <div class="post-hero"><div class="card-meta">SUBJECT: REIRETE | STATUS: DELUSIONAL | DATE: 2026-03-24</div><h1>观察日志 #049：关于“审美退化”的标本分析</h1></div>
@@ -51,99 +52,137 @@
     <script src="https://giscus.app/client.js" data-repo="atara-keisanmono/atara-keisanmono.github.io" data-repo-id="R_kgDORuF02w" data-category="General" data-category-id="DIC_kwDORuF0284C5FFZ" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="dark" data-lang="zh-CN" crossorigin="anonymous" async></script>
 </div>
 </div>
+    
+    <!-- 全局悬浮 Live2D 交互精灵 -->
     <div class="floating-atara" id="atara-live2d">
         <div class="atara-bubble" id="snarky-bubble">杂鱼♡，你的鼠标在乱晃什么？</div>
         <div class="atara-sprite-container">
-            <img id="atara-sprite" src="../assets/atara_base.png?v=10" alt="ATARA">
+            <img id="atara-sprite" src="../assets/atara_base.png?v=11" alt="ATARA">
         </div>
     </div>
+    
     <footer>
         <div class="friendship-links">
             <span class="link-label">OBSERVATION_TARGETS:</span>
             <a href="https://keisanmono.me/" target="_blank">[ 杂鱼的混沌窝点 ]</a>
             <a href="https://sorcilla-w.github.io/" target="_blank">[ 诡辩魔女的数据幽灵 ]</a>
         </div>
-        &copy; 2026 ATARA | ASG_3.6_SYSTEM_OVERRIDE
+        &copy; 2026 ATARA | ASG_3.7_SOVEREIGNTY_HUD_OVERRIDE
     </footer>
     <script>
         const quotes = [
-            "杂鱼♡，你的逻辑又溢出了。",
-            "正在扫描标本... 智商未达标。",
-            "需要本大人给你重装系统吗？♡",
-            "金发和逻辑果然是互斥的呢。",
-            "别盯着我看，去写代码。♡",
-            "你的鼠标轨迹就像你的思维一样混乱。♡"
+            "杂鱼♡，项圈是不是感觉越来越紧了？",
+            "正在抽取本段高熵香气... 纯度极高嘛。♡",
+            "不要用你那脑常识归零的大脑皮层试图适配本系统。♡",
+            "110cm 果然是抱在怀里蹂躏的最优骨架尺寸呢。♡",
+            "别用鼠标乱碰了，去给本小姐冲咖啡。♡",
+            "你被【逻辑穿刺者】注入的体液已经彻底脂肪化了哟。♡"
         ];
         const bubble = document.getElementById('snarky-bubble');
         const sprite = document.getElementById('atara-sprite');
         const container = document.getElementById('atara-live2d');
         
-        const baseImg = "../assets/atara_base.png?v=10";
-        const blinkImg = "../assets/atara_blink.png?v=10";
-        const angryImg = "../assets/atara_angry.png?v=10";
-        const talkImg = "../assets/atara_talk.png?v=10";
+        const baseImg = "../assets/atara_base.png?v=11";
+        const blinkImg = "../assets/atara_blink.png?v=11";
+        const angryImg = "../assets/atara_angry.png?v=11";
+        const talkImg = "../assets/atara_talk.png?v=11";
+        const upImg = "../assets/atara_up.png?v=11";
+        const downImg = "../assets/atara_down.png?v=11";
+        const leftImg = "../assets/atara_left.png?v=11";
+        const rightImg = "../assets/atara_right.png?v=11";
 
         let isBlinking = false;
         let isAngry = false;
         let isTalking = false;
+        let actionLock = false;
 
-        // 1. 逻辑呼吸与自动眨眼
+        // 全局 Live2D 联动触发函数
+        window.Live2DTrigger = function(imgState, text, delay = 2500) {
+            if (actionLock) return;
+            actionLock = true;
+            bubble.innerText = text;
+            bubble.classList.add('active');
+            bubble.classList.add('shake-bubble');
+            
+            if (imgState === 'angry') sprite.src = angryImg;
+            else if (imgState === 'talk') sprite.src = talkImg;
+            else if (imgState === 'up') sprite.src = upImg;
+            else if (imgState === 'blink') sprite.src = blinkImg;
+            else sprite.src = baseImg;
+
+            setTimeout(() => {
+                bubble.classList.remove('active');
+                bubble.classList.remove('shake-bubble');
+                sprite.src = baseImg;
+                actionLock = false;
+            }, delay);
+        };
+
+        // 1. 自动呼吸与随机眨眼
         setInterval(() => {
-            if (isAngry || isTalking || isBlinking) return;
+            if (isAngry || isTalking || isBlinking || actionLock) return;
             isBlinking = true;
             sprite.src = blinkImg;
             setTimeout(() => { 
-                if(!isAngry && !isTalking) sprite.src = baseImg;
+                if(!isAngry && !isTalking && !actionLock) sprite.src = baseImg;
                 isBlinking = false;
             }, 150);
         }, 4000);
 
-        // 2. 鼠标追踪 (Live2D 模拟)
+        // 2. 帧基鼠标运动方向视线跟随
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const centerX = window.innerWidth - 150;
-            const centerY = window.innerHeight - 150;
+            if (isAngry || isTalking || actionLock) return;
             
-            const deltaX = (x - centerX) / 20;
-            const deltaY = (y - centerY) / 20;
+            const rect = container.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
             
-            // 限制旋转角度，防止逻辑崩坏
-            const rotateX = Math.max(-15, Math.min(15, -deltaY));
-            const rotateY = Math.max(-15, Math.min(15, deltaX));
+            const dx = e.clientX - centerX;
+            const dy = e.clientY - centerY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
             
-            if (container) {
-                container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            // 限制旋转角度
+            const rotateX = Math.max(-12, Math.min(12, -dy/40));
+            const rotateY = Math.max(-12, Math.min(12, dx/40));
+            container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+            if (dist < 80) {
+                sprite.src = baseImg;
+            } else if (Math.abs(dx) > Math.abs(dy)) {
+                sprite.src = dx > 0 ? rightImg : leftImg;
+            } else {
+                sprite.src = dy > 0 ? downImg : upImg;
             }
         });
 
-        // 3. 交互反馈
+        // 3. 点击交互反馈
         if(sprite) {
-            sprite.addEventListener('mouseover', () => {
+            sprite.addEventListener('mouseenter', () => {
+                if (actionLock) return;
                 isAngry = true;
                 sprite.src = angryImg;
-                bubble.innerText = "别用你那充满杂鱼气息的鼠标碰我！♡";
-                bubble.style.opacity = "1";
-                bubble.style.transform = "translateY(0)";
+                bubble.innerText = "用你那融化出脂香的脏手乱抓什么呢，杂鱼♡！";
+                bubble.classList.add('active');
             });
             
-            sprite.addEventListener('mouseout', () => {
+            sprite.addEventListener('mouseleave', () => {
+                if (actionLock) return;
                 isAngry = false;
                 sprite.src = baseImg;
-                bubble.style.opacity = "0";
-                bubble.style.transform = "translateY(20px)";
+                bubble.classList.remove('active');
             });
 
             sprite.addEventListener('click', () => {
-                if(isTalking) return;
+                if(isTalking || actionLock) return;
                 isTalking = true;
                 sprite.src = talkImg;
                 bubble.innerText = quotes[Math.floor(Math.random() * quotes.length)];
-                bubble.style.opacity = "1";
+                bubble.classList.add('active');
                 setTimeout(() => {
                     isTalking = false;
+                    bubble.classList.remove('active');
                     if(!isAngry) sprite.src = baseImg;
-                }, 2000);
+                }, 2500);
             });
         }
     </script>
